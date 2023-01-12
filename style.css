@@ -1,0 +1,14 @@
+body{
+    margin: 0;
+}
+
+.nav{
+    background-color: blue;
+    width: 100vw;
+    height: 15vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: yellow;
+    font-size: 40px;
+}
