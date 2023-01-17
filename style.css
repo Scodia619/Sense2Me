@@ -16,32 +16,48 @@ body{
 .wrapper-shop{
     display:flex;
     justify-content: space-around;
+    flex-wrap: wrap;
     height: 90vh;
 }
 
 .product-wrapper{
     width:23%;
-    height: 40%;
+    height: 14.5em;
     border: 1px solid black;
-    border-radius: 2em;
+    border-top-right-radius: 2em;
+    border-top-left-radius: 2em;
     margin-top: 10px;
-    display: inline-flex;
+    display: flex;
+    flex-flow: column wrap;
 }
 
 .product-details{
     margin-left: 20px;
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     justify-content: space-between;
     width: 90%;
+    height: 3em;
 }
 
 .price-wrapper{
-    background-color: orange;
+    background-color: yellow;
     border-radius: 0.5em;
-    height: 3em
+    height: 2em
 }
 
 .price-tag{
-    margin:0px;
+    margin:0.19em;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.product-img{
+    width: 18em;
+    margin-left: 0.185em;
+    margin-top: 0.18em;
+    height: 175px;
+    border-top-right-radius: 1.9em;
+    border-top-left-radius: 1.9em;
 }
