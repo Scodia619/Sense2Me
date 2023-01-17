@@ -5,10 +5,43 @@ body{
 .nav{
     background-color: blue;
     width: 100vw;
-    height: 15vh;
+    height: 10vh;
     display: flex;
     align-items: center;
     justify-content: center;
     color: yellow;
     font-size: 40px;
+}
+
+.wrapper-shop{
+    display:flex;
+    justify-content: space-around;
+    height: 90vh;
+}
+
+.product-wrapper{
+    width:23%;
+    height: 40%;
+    border: 1px solid black;
+    border-radius: 2em;
+    margin-top: 10px;
+    display: inline-flex;
+}
+
+.product-details{
+    margin-left: 20px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    width: 90%;
+}
+
+.price-wrapper{
+    background-color: orange;
+    border-radius: 0.5em;
+    height: 3em
+}
+
+.price-tag{
+    margin:0px;
 }
