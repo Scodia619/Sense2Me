@@ -27,6 +27,7 @@
   
   .react-link:hover{
     color: #FFBF00;
+    cursor: pointer;
   }
 
   .active,
