@@ -2,11 +2,13 @@ import "./product.css";
 
 import picture from "../images/double-beaded-roller.jpg";
 
+import NavBar from "../components/NavBar";
+
 function Product() {
 
     return(
         <div className="product">
-            <div class="nav">Sense2Me</div>
+            <NavBar/>
             <div className="product-page-content">
                 <div className="left">
                     <div className="product-image">

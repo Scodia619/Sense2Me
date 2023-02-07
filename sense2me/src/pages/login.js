@@ -8,6 +8,7 @@ function Login(){
     return(
         <div className="Login">
             <NavBar/>
+            <div className="main"></div>
         </div>
     );
 }

@@ -1,14 +1,14 @@
 import React from "react";
 import "./ProductDetailsShop.css"
 
-const ProductDetailsShop = () => {
+function ProductDetailsShop(props){
 
     return(
 
         <div className="product-details">
-            <h3 className="title">Double Beaded Roller</h3>
+            <h3 className="title">{props.items.items.name}</h3>
             <div className="price-wrapper">
-                <h3 className="price-tag">£7.32</h3>
+                <h3 className="price-tag">{props.items.items.price}</h3>
             </div>
         </div>
 

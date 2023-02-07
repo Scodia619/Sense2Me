@@ -37,3 +37,8 @@
     border-radius: 1em;
     
   }
+
+  .product-link{
+    text-decoration: none;
+    color: inherit
+  }

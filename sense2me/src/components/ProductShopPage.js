@@ -9,16 +9,16 @@ import picture from "../images/double-beaded-roller.jpg";
 //importing components
 import ProductDetailsShop from "./ProductDetailsShop";
 
-const ProductShopPage = () => {
+function ProductShopPage (props){
 
     return (
         
-          <div className="product-wrapper" id="double">
-              <div className="image">
-                  <img src={picture}  alt="A double beaded roller to help with anxiety" className="product-img-sml"/>
-              </div>
-              <ProductDetailsShop/>
-          </div>);
+        <div className="product-wrapper" id="double">
+        <div className="image">
+            <img src={props.items.image}  alt="A double beaded roller to help with anxiety" className="product-img-sml"/>
+        </div>
+        <ProductDetailsShop items={props}/>
+    </div>);
 };
 
 export default ProductShopPage;
