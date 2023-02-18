@@ -1,3 +1,5 @@
+import  {useParams} from 'react-router-dom';
+
 import "./product.css";
 
 import picture from "../images/double-beaded-roller.jpg";

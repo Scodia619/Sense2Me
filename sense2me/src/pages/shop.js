@@ -20,7 +20,7 @@ function Shop() {
                 <NavBar/>
                 <div className="wrapper-shop">  
                 {results.map((item) => (
-                    <Link key={item.name} to='/product' className="product-link">
+                    <Link key={item.name} to={{ pathname: "/product", state: { item } }} className="product-link">
                         <ProductShopPage items={item} />
                     </Link>
                     ))}

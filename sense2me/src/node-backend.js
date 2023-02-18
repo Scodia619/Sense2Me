@@ -5,8 +5,22 @@ const mongoose = require("mongoose")
 const mongoDB = 'mongodb+srv://Scodia619:VQZgZoaEI7CGEM6u@sense2me.hu2nwde.mongodb.net/?retryWrites=true&w=majority'
 mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true });
 
-const db = mongoose.connection
+const autoIncrement = require('mongoose-auto-increment');
+
+const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+db.once('open', function() {
+  console.log('Connected to MongoDB');
+});
+
+autoIncrement.initialize(mongoose.connection);
+
+const userSchema = new mongoose.Schema({
+    name: { type: String, required: true },
+    email: { type: String, required: true }, 
+    password: { type: String, required: true }, 
+    isAdmin: {type: Boolean, required: true}
+})
 
 const productSchema = new mongoose.Schema({
     name: String,
@@ -15,7 +29,11 @@ const productSchema = new mongoose.Schema({
     image: String
 })
 
+userSchema.plugin(autoIncrement.plugin, { model: 'User', field: '_id' });
+productSchema.plugin(autoIncrement.plugin, { model: 'Product', field: '_id' });
+
 const Products = mongoose.model('Product', productSchema)
+const Users = mongoose.model('User', userSchema)
 
 const app = express()
 // parse application/x-www-form-urlencoded
@@ -32,17 +50,11 @@ app.get("/", (req, res) => {
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
     res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
     
-    res.send([{name: "Wooden Fidget", price: "3.00", description: "a wooden fidget toy", image: "https://i.ibb.co/N3sw2ZY/double-beaded-roller.jpg"},
-    {name: "Fidget Spinner", price: "9.00", description: "A spinner Fidget", image: "https://i.ibb.co/TYTmBX9/cory-Gp-K9r-IM2-EIA-unsplash.jpg"},
-    {name: "Sensory Pack", price: "13.00", description: "a wooden fidget toy", image: "https://i.ibb.co/FqNHQ9v/hello-i-m-nik-Qjo-M-O33-NVk-unsplash.jpg"},
-    {name: "SquishMellow", price: "7.96", description: "a wooden fidget toy", image: "https://i.ibb.co/PWzSBG1/joice-kelly-r-Xr-My7m-XUEs-unsplash.jpg"},
-    {name: "Metal Fidget", price: "3.75", description: "a wooden fidget toy", image: "https://i.ibb.co/gJv93tQ/charles-lamb-n-Yz-SYb1-YSPg-unsplash.jpg"},
-    {name: "Anxiety Bracelet", price: "4.00", description: "a wooden fidget toy", image: "https://i.ibb.co/Yp1nBQX/octavio-fossatti-Bbhq-Dutq-Jew-unsplash.jpg"},])
-
-    /* Products.find((err, products) => {
+    Products.find((err, products) => {
+        if (err) return next(err);
+            res.json(products);
         console.log("Products: ", products)
-        res.json(products)
-    }) */
+    })
 })
 
 // app.get("/products/:id", (req, res) => {
@@ -52,20 +64,38 @@ app.get("/", (req, res) => {
 // })
 
 app.post("/", (req, res) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Credentials', true);
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-    res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
     console.log(req.body);
-    // Do something with the data sent in the request body
-    res.send("Data received");
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, OPTIONS");
+  
+    Products.create(req.body, (err, product) => {
+      if (err) return next(err);
+      res.json(product);
+    });
   });
 
-//     product.save((err) => {
-//         res.json(product)
-//     })
-// })
+app.post("/user", (req, res) => {
 
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, OPTIONS");
+    
+    console.log(req.body);
+    Users.create(req.body, (err, user) => {
+        if (err) return next(err);
+        res.json(user);
+      });
+})
+
+
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+    next();
+});
+  
 // app.put("/dogs/:id", (req, res) => {
 //     console.log(req.params.id)
 //     console.log(req.body)
